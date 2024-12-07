@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>试卷识别系统</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+</head>
+<body>
+    <!-- 登录页面 -->
+    <div class="login-container">
+        <div class="login-box">
+            <h1>试卷识别系统</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="apiKey">智谱API密钥</label>
+                    <input type="password" id="apiKey" required placeholder="请输入您的API密钥">
+                    <p class="help-text">请输入您的智谱API密钥</p>
+                </div>
+                <div class="form-group">
+                    <label for="modelSelect">选择模型</label>
+                    <select id="modelSelect" required>
+                        <option value="">请选择模型</option>
+                        <optgroup label="图像理解模型">
+                            <option value="glm-4v-flash">GLM-4V-Flash (免费模型，强大图片理解能力，最大8K)</option>
+                            <option value="glm-4v-plus">GLM-4V-Plus (视频和多图片理解，最大8K)</option>
+                            <option value="glm-4v">GLM-4V (基础图像理解和推理，最大2K)</option>
+                        </optgroup>
+                        <optgroup label="图像生成模型">
+                            <option value="cogview-3-plus">CogView-3-Plus (高质量图像生成，多尺寸支持)</option>
+                            <option value="cogview-3">CogView-3 (快速精准图像生成)</option>
+                        </optgroup>
+                        <optgroup label="视频处理">
+                            <option value="cogvideox">CogVideoX (视频生成，支持文本和图片输入)</option>
+                        </optgroup>
+                    </select>
+                    <p class="help-text model-info"></p>
+                    <p class="error-text" style="display: none;"></p>
+                </div>
+                <button type="submit">登录</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 主应用页面 -->
+    <div class="app-container" style="display: none;">
+        <div class="container">
+            <div class="header">
+                <h1>试卷识别系统</h1>
+                <div class="header-right">
+                    <span class="model-info">当前模型: <span id="currentModel"></span></span>
+                    <button id="logoutBtn" class="logout-btn">退出登录</button>
+                </div>
+            </div>
+            <div class="upload-section">
+                <input type="file" id="paperUpload" accept="image/*" class="file-input">
+                <button id="uploadBtn" class="upload-btn">上传试卷</button>
+            </div>
+            <div class="preview-section">
+                <div class="image-preview">
+                    <img id="previewImage" src="" alt="试卷预览" style="display: none;">
+                </div>
+                <div class="result-section">
+                    <h2>识别结果</h2>
+                    <div class="result-controls">
+                        <button id="editBtn" class="edit-btn" style="display: none;">编辑结果</button>
+                        <button id="saveBtn" class="save-btn" style="display: none;">保存修改</button>
+                        <button id="cancelBtn" class="cancel-btn" style="display: none;">取消修改</button>
+                    </div>
+                    <div id="resultContent" class="result-content">
+                        <!-- 识别结果将在这里显示 -->
+                    </div>
+                    <div id="editableContent" class="editable-content" style="display: none;">
+                        <div class="edit-section">
+                            <h3>题目内容</h3>
+                            <div id="questionsList"></div>
+                            <button id="addQuestionBtn" class="add-btn">添加题目</button>
+                        </div>
+                        <div class="edit-section">
+                            <h3>错误标记</h3>
+                            <div id="errorsList"></div>
+                            <button id="addErrorBtn" class="add-btn">添加错误</button>
+                        </div>
+                        <div class="edit-section">
+                            <h3>扣分记录</h3>
+                            <div id="deductionsList"></div>
+                            <button id="addDeductionBtn" class="add-btn">添加扣分</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="src/js/main.js"></script>
+</body>
+</html> 
